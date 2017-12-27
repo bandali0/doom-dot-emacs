@@ -13,7 +13,7 @@ git clone https://git.aminb.org/amin/dot-emacs.git ~/usr/dot-emacs
 cd ~/.emacs.d
 git checkout develop  # this repo is meant to be used with Doom's develop branch
 ln -s ~/usr/dot-emacs/init.el .
-ln -s ~/usr/dot-emacs/modules/private/* .
+ln -s ~/usr/dot-emacs/modules/private/* modules/private
 make install
 make compile
 ```
