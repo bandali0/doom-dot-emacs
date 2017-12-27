@@ -250,9 +250,10 @@ FILENAME defaults to `buffer-file-name'."
   ;; from project directories, because Magit adds trailing slashes again, which
   ;; breaks the presentation in the Magit prompt.
   (setq magit-repository-directories
-        '(("~/.emacs.d" . 0)
-          ("~/dotfiles" . 0)
-          ("~/src"      . 2))))
+        '(("~/.emacs.d"      . 0)
+          ("~/usr/dot-emacs" . 0)
+          ("~/dotfiles"      . 0)
+          ("~/src"           . 2))))
 
 (defun magit-status-prefix ()
   "Always call `magit-status' with prefix arg. This will cause
