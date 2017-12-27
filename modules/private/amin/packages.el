@@ -12,12 +12,3 @@
 (package! nix-mode)
 
 (package! dired+)
-
-;; (package! zoom-frm
-;;   :recipe
-;;   (:fetcher github :repo "emacsmirror/zoom-frm"))
-
-;; (package! tango-plus-theme
-;;   :recipe (:fetcher url
-;;            :url "https://raw.githubusercontent.com/aminb/tango-plus-theme/master/tango-plus-theme.el"))
-

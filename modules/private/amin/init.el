@@ -12,10 +12,9 @@
       user-full-name    "Amin Bandali")
 
 (setq +doom-modeline-height 36 ;; 32
-      ;; doom-font (font-spec :family "Hack" :size 14)
+      +doom-dashboard-pwd-policy "~/"
       doom-variable-pitch-font (font-spec :family "Concourse T4" :size 15)
       doom-theme 'doom-one-light
-      ;; doom-theme 'tango-plus
       text-scale-mode-step 1.05
       org-ellipsis "  "
       )

@@ -246,14 +246,24 @@ FILENAME defaults to `buffer-file-name'."
   :commands (magit-clone))
 
 (after! magit
-  ;; Set Magit's repo dirs for `magit-status' manually. Remove trailing slashes
-  ;; from project directories, because Magit adds trailing slashes again, which
-  ;; breaks the presentation in the Magit prompt.
-  (setq magit-repository-directories
-        '(("~/.emacs.d"      . 0)
-          ("~/usr/dot-emacs" . 0)
-          ("~/dotfiles"      . 0)
-          ("~/src"           . 2))))
+  ;; Set Magit's repo dirs for `magit-status' from Projectile's known projects.
+  ;; Initialize the `magit-repository-directories' immediately after Projectile
+  ;; was loaded, and update it every time we switched projects, because the new
+  ;; project might have been unknown before.
+  (defun magit-repo-dirs-from-projectile ()
+    "Set `magit-repo-dirs' from known Projectile projects."
+    (let ((project-dirs (bound-and-true-p projectile-known-projects)))
+      ;; Remove trailing slashes from project directories, because Magit adds
+      ;; trailing slashes again, which breaks the presentation in the Magit
+      ;; prompt.
+      (setq magit-repository-directories
+            (mapcar #'directory-file-name project-dirs))))
+
+  (after! projectile
+    (magit-repo-dirs-from-projectile))
+
+  (add-hook! 'projectile-switch-project-hook
+    #'magit-repo-dirs-from-projectile))
 
 (defun magit-status-prefix ()
   "Always call `magit-status' with prefix arg. This will cause
@@ -270,10 +280,4 @@ to another project."
 
 (def-package! dired+
   :config (diredp-toggle-find-file-reuse-dir 1))
-
-;; (def-package! zoom-frm
-;;   :commands (zoom-in/out zoom-in zoom-out))
-
-;; (def-package! tango-plus-theme)
-;; (require 'tango-plus-theme)
 
