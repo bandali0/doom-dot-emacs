@@ -12,9 +12,8 @@
       user-full-name    "Amin Bandali")
 
 (setq +doom-modeline-height 36 ;; 32
-      doom-font (font-spec :family "Hack" :size 14)
+      ;; doom-font (font-spec :family "Hack" :size 14)
       doom-variable-pitch-font (font-spec :family "Concourse T4" :size 15)
-      doom-unicode-font (font-spec :family "Hack" :size 14)
       doom-theme 'doom-one-light
       ;; doom-theme 'tango-plus
       text-scale-mode-step 1.05
@@ -25,13 +24,19 @@
   (set-fontset-font
    ft
    'unicode
-   (font-spec :name "Hack" :size 14))
+   (font-spec :name "Ubuntu Mono"))
   (set-fontset-font
    ft
    'unicode
    (font-spec
-    :name "Symbola monospacified for DejaVu Sans Mono"
-    :size 14)
+    :name "Hack")
+   nil
+   'append)
+  (set-fontset-font
+   ft
+   'unicode
+   (font-spec
+    :name "Symbola monospacified for DejaVu Sans Mono")
    nil
    'append))
 
