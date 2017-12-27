@@ -273,3 +273,7 @@ to another project."
 
 ;; (def-package! zoom-frm
 ;;   :commands (zoom-in/out zoom-in zoom-out))
+
+;; (def-package! tango-plus-theme)
+;; (require 'tango-plus-theme)
+
