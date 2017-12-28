@@ -6,17 +6,9 @@
 ;; Global config
 ;;
 
-(setq epa-file-encrypt-to user-mail-address
-      auth-sources (list "~/.authinfo.gpg")
-      ;; +doom-modeline-buffer-file-name-style 'file-name
-      +doom-modeline-buffer-file-name-style 'relative-from-project
+(setq auth-sources (list "~/.authinfo.gpg")
+      +doom-modeline-buffer-file-name-style 'relative-from-project  ;; 'file-name
       tramp-default-method "ssh")
-
-(defun +hlissner*no-authinfo-for-tramp (orig-fn &rest args)
-  "Don't look into .authinfo for local sudo TRAMP buffers."
-  (let ((auth-sources (if (equal tramp-current-method "sudo") nil auth-sources)))
-    (apply orig-fn args)))
-(advice-add #'tramp-read-passwd :around #'+hlissner*no-authinfo-for-tramp)
 
 
 ;;
