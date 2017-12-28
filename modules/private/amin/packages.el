@@ -12,3 +12,5 @@
 (package! nix-mode)
 
 (package! dired+)
+
+(package! ibuffer-vc)
