@@ -305,3 +305,14 @@ to another project."
      (ibuffer-vc-set-filter-groups-by-vc-root)
      (unless (eq ibuffer-sorting-mode 'alphabetic)
        (ibuffer-do-sort-by-alphabetic)))))
+
+
+;; ssh-tunnels (used specifically for weechat)
+(def-package! ssh-tunnels
+  :commands ssh-tunnels
+  :config
+  (setq ssh-tunnels-configurations
+        '((:name "weechat tunnel"
+                 :local-port 49000
+                 :remote-port 49087
+                 :login "amin@nix.aminb.org"))))

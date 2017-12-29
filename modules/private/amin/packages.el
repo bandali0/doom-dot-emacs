@@ -14,3 +14,5 @@
 (package! dired+)
 
 (package! ibuffer-vc)
+
+(package! ssh-tunnels)
