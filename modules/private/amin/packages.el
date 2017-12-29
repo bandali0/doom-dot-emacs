@@ -16,3 +16,5 @@
 (package! ibuffer-vc)
 
 (package! ssh-tunnels)
+
+(package! weechat)

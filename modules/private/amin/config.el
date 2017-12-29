@@ -63,6 +63,9 @@
      :desc "Back" :n "k" #'dumb-jump-back)
 
    (:desc "app" :prefix "a"
+     (:desc "irc (weechat)" :prefix "i"
+       :desc "connect"    :n "c" #'aminb-irc-connect
+       :desc "disconnect" :n "d" #'aminb-irc-disconnect)
      (:desc "shell" :prefix "s"
        :desc "eshell"     :n "e" #'+eshell:run
        :desc "multi-term" :n "m" #'multi-term))
@@ -307,12 +310,32 @@ to another project."
        (ibuffer-do-sort-by-alphabetic)))))
 
 
-;; ssh-tunnels (used specifically for weechat)
-(def-package! ssh-tunnels
-  :commands ssh-tunnels
+;; weechat.el
+(def-package! weechat
+  :commands
+  (weechat-connect
+   weechat-disconnect
+   weechat-monitor-buffer)
   :config
-  (setq ssh-tunnels-configurations
-        '((:name "weechat tunnel"
-                 :local-port 49000
-                 :remote-port 49087
-                 :login "amin@nix.aminb.org"))))
+  (setq weechat-host-default "localhost"
+        weechat-port-default 49000))
+
+(defun weechat-tunnel (command)
+  (call-process "weechat-tunnel" nil nil nil command))
+
+(defun aminb-irc-connect ()
+  "Connect to my WeeChat relay"
+  (interactive)
+  (progn
+    (message "Tunneling...")
+    (weechat-tunnel "start")
+    (message "Tunnel established")
+    (weechat-connect)))
+
+(defun aminb-irc-disconnect ()
+  "Disconnect from my WeeChat relay"
+  (interactive)
+  (progn
+    (weechat-disconnect)
+    (weechat-tunnel "stop")
+    (message "Tunnel stopped")))
