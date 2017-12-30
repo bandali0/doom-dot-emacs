@@ -93,7 +93,11 @@
    "." #'hydra-ibuffer-main/body)
 
  (:map evil-window-map
-   "." #'doom@window-nav/body))
+   "." #'doom@window-nav/body)
+
+ (:after weechat
+   :map weechat-mode-map
+   "C-c C-d" #'aminb-irc-disconnect))
 
 
 ;;
@@ -320,6 +324,9 @@ to another project."
 
 
 ;; weechat.el
+
+(defvar +irc--workspace-name "irc")
+
 (def-package! weechat
   :commands
   (weechat-connect
@@ -327,7 +334,16 @@ to another project."
    weechat-monitor-buffer)
   :config
   (setq weechat-host-default "localhost"
-        weechat-port-default 49000))
+        weechat-port-default 49000
+        weechat-more-lines-amount 50
+        weechat-buffer-line-limit 4000
+        weechat-notification-mode t
+        weechat-auto-monitor-buffers t
+        weechat-buffer-kill-buffers-on-disconnect t
+        weechat-completing-read-function 'weechat--try-ivy)
+  (set! :evil-state 'weechat-mode 'insert)
+  ;; weechat's buffers should be real
+  (push #'weechat-buffer-p doom-real-buffer-functions))
 
 (defun weechat-tunnel (command)
   (call-process "weechat-tunnel" nil nil nil command))
@@ -339,6 +355,7 @@ to another project."
     (message "Tunneling...")
     (weechat-tunnel "start")
     (message "Tunnel established")
+    (+workspace-switch +irc--workspace-name t)
     (weechat-connect)))
 
 (defun aminb-irc-disconnect ()
@@ -347,4 +364,5 @@ to another project."
   (progn
     (weechat-disconnect)
     (weechat-tunnel "stop")
-    (message "Tunnel stopped")))
+    (message "Tunnel stopped")
+    (+workspace/delete +irc--workspace-name)))
