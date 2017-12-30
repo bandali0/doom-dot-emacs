@@ -24,10 +24,6 @@
   (add-hook 'message-mode-hook
             (lambda () (setq fill-column 65
                         message-fill-column 65)))
-  (add-hook 'visual-fill-column-mode-hook
-            (lambda ()
-              (when (string= major-mode 'notmuch-message-mode)
-                (setq visual-fill-column-width 70))))
   (add-hook 'message-mode-hook
             #'flyspell-mode)
   ;; (add-hook 'message-setup-hook
@@ -51,7 +47,12 @@
         notmuch-fcc-dirs
         '(("amin@aminb.org" . "amin/Sent")
           ("aminb@gnu.org"  . "gnu/Sent")
-          (".*"             . "sent"))))
+          (".*"             . "sent")))
+  (add-hook 'visual-fill-column-mode-hook
+            (lambda ()
+              (when (string= major-mode 'notmuch-message-mode)
+                (setq visual-fill-column-width 70))))
+  (set! :evil-state 'notmuch-message-mode 'insert))
 
 (def-package! counsel-notmuch
   :commands counsel-notmuch)
