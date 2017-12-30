@@ -1,19 +1,24 @@
 ;;; private/amin/config.el -*- lexical-binding: t; -*-
 
-(load! +hydras)
 
 ;;
 ;; Global config
 ;;
 
 (setq auth-sources (list "~/.authinfo.gpg")
-      +doom-modeline-buffer-file-name-style 'relative-from-project  ;; 'file-name
+      +doom-modeline-buffer-file-name-style 'relative-from-project  ; 'file-name
       tramp-default-method "ssh")
+
+(setq-default show-trailing-whitespace t)
+(add-hook! '(minibuffer-setup-hook doom-popup-mode-hook)
+  (setq-local show-trailing-whitespace nil))
 
 
 ;;
 ;; Keybindings
 ;;
+
+(load! +hydras)
 
 (map!
  :ne "M-b" #'backward-word
@@ -238,7 +243,7 @@ FILENAME defaults to `buffer-file-name'."
 
 ;; feature/version-control
 (def-package! magit
-  :commands (magit-clone))
+  :commands magit-clone)
 
 (after! magit
   ;; Set Magit's repo dirs for `magit-status' from Projectile's known projects.
@@ -292,13 +297,13 @@ to another project."
 
   (setq ibuffer-formats
         '((mark modified read-only " "
-    	        (name 18 18 :left :elide)
-    	        " "
-    	        (size-h 9 -1 :right)
-    	        " "
-    	        (mode 16 16 :left :elide)
-    	        " "
-    	        filename-and-process))))
+                (name 18 18 :left :elide)
+                " "
+                (size-h 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                filename-and-process))))
 
 (def-package! ibuffer-vc
   :config
