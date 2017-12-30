@@ -36,10 +36,12 @@
  ;; "C-x C-0"     #'zoom-in/out
  ;; "M--"         #'zoom-out
  ;; "M-="         #'zoom-in
+ :n "\\"       #'recentf-open-files
 
  (:leader
-   :desc "Dashboard" :n "d" #'+doom-dashboard/open
-   :desc "Centered"  :n "C" #'centered-window-mode
+   :desc "Dashboard"    :n "d" #'+doom-dashboard/open
+   :desc "Centered"     :n "C" #'centered-window-mode
+   ;; :desc "Recent files" :n "k" #'recentf-open-files
 
    (:desc "buffer" :prefix "b"
      :desc "Ibuffer" :n "i" #'ibuffer)
@@ -66,6 +68,9 @@
    (:desc "dumb-jump" :prefix "j"
      :desc "Go"   :n "j" #'dumb-jump-go
      :desc "Back" :n "k" #'dumb-jump-back)
+
+   (:desc "toggle" :prefix "t"
+     :desc "Distraction-free" :n "d" #'visual-fill-column-mode)
 
    (:desc "app" :prefix "a"
      (:desc "irc (weechat)" :prefix "i"
@@ -175,24 +180,22 @@ FILENAME defaults to `buffer-file-name'."
   (setq dumb-jump-force-searcher 'rg))
 
 ;; ;; core/core-ui -- distraction-free and centered editing
-;; (def-package! visual-fill-column
-;;   :init
-;;   (dolist (hook '(prog-mode-hook
-;;                   text-mode-hook
-;;                   ;; notmuch-show-hook
-;;                   ;; haskell-cabal-mode-hook
-;;                   ))
-;;     (add-hook hook #'visual-fill-column-mode))
-;;   :config
-;;   ;; Center text by default and move the fringes close to the text.
-;;   (setq-default visual-fill-column-center-text t
-;;                 visual-fill-column-fringes-outside-margins nil
-;;                 ;; take into account the line numbers in Emacs 26
-;;                 visual-fill-column-width (+ fill-column 6))
-;;   ;; Split windows vertically despite large margins, because Emacs otherwise
-;;   ;; refuses to vertically split windows with large margins
-;;   (setq split-window-preferred-function
-;;         #'visual-fill-column-split-window-sensibly))
+(def-package! visual-fill-column
+  :init
+  (dolist (hook '(prog-mode-hook
+                  text-mode-hook
+                  ;; notmuch-show-hook
+                  ;; haskell-cabal-mode-hook
+                  ))
+    (add-hook hook #'visual-fill-column-mode))
+  :config
+  (setq-default visual-fill-column-width (+ fill-column 5)
+                visual-fill-column-center-text t
+                visual-fill-column-fringes-outside-margins nil)
+  ;; Split windows vertically despite large margins, because Emacs otherwise
+  ;; refuses to vertically split windows with large margins
+  (setq split-window-preferred-function
+        #'visual-fill-column-split-window-sensibly))
 
 ;; lang/org
 (after! org-mode
