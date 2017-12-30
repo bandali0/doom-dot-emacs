@@ -184,6 +184,7 @@ FILENAME defaults to `buffer-file-name'."
   :init
   (dolist (hook '(prog-mode-hook
                   text-mode-hook
+                  notmuch-message-mode-hook
                   ;; notmuch-show-hook
                   ;; haskell-cabal-mode-hook
                   ))

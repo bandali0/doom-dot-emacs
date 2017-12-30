@@ -8,4 +8,7 @@
   (notmuch))
 
 (map!
- :leader :desc "notmuch" :n "m" #'aminb-notmuch)
+ :leader
+ :desc "notmuch" :n "m" #'aminb-notmuch
+ (:desc "search" :prefix "/"
+   :desc "notmuch" :n "m" #'counsel-notmuch))

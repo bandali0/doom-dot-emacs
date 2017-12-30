@@ -2,4 +2,4 @@
 ;;; private/notmuch/packages.el
 
 (package! notmuch)
-;(package! smtpmail)
+(package! counsel-notmuch)

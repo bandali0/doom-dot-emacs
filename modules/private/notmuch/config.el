@@ -22,8 +22,14 @@
         message-directory "drafts"
         message-user-fqdn "aminb.org")
   (add-hook 'message-mode-hook
-            '(lambda () (setq fill-column 65))
-            'append)
+            (lambda () (setq fill-column 65
+                        message-fill-column 65)))
+  (add-hook 'visual-fill-column-mode-hook
+            (lambda ()
+              (when (string= major-mode 'notmuch-message-mode)
+                (setq visual-fill-column-width 70))))
+  (add-hook 'message-mode-hook
+            #'flyspell-mode)
   ;; (add-hook 'message-setup-hook
   ;;           #'mml-secure-message-sign-pgpmime)
   )
@@ -45,8 +51,10 @@
         notmuch-fcc-dirs
         '(("amin@aminb.org" . "amin/Sent")
           ("aminb@gnu.org"  . "gnu/Sent")
-          (".*"             . "sent")))
-  )
+          (".*"             . "sent"))))
+
+(def-package! counsel-notmuch
+  :commands counsel-notmuch)
 
 (after! notmuch-crypto
   (setq notmuch-crypto-process-mime t))
