@@ -320,16 +320,20 @@ to another project."
   (setq weechat-host-default "localhost"
         weechat-port-default 49000))
 
-(defun weechat-tunnel (command)
-  (call-process "weechat-tunnel" nil nil nil command))
+(load! +ssh-tunnels)
+
+(defvar weechat-tunnel
+  '(:name "weechat tunnel"
+          :host "localhost"
+          :local-port 49000
+          :remote-port 49087
+          :login "amin@nix.aminb.org"))
 
 (defun aminb-irc-connect ()
   "Connect to my WeeChat relay"
   (interactive)
   (progn
-    (message "Tunneling...")
-    (weechat-tunnel "start")
-    (message "Tunnel established")
+    (ssh-tunnel-start weechat-tunnel)
     (weechat-connect)))
 
 (defun aminb-irc-disconnect ()
@@ -337,5 +341,4 @@ to another project."
   (interactive)
   (progn
     (weechat-disconnect)
-    (weechat-tunnel "stop")
-    (message "Tunnel stopped")))
+    (ssh-tunnel-stop weechat-tunnel)))
