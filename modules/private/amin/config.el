@@ -138,9 +138,7 @@
   ;; elegant, so we use those.
   (setq org-bullets-bullet-list '("#")))
 
-;;
 ;; core/core-ui
-;;
 ;; disable line numbers
 (remove-hook! (prog-mode text-mode conf-mode) #'doom|enable-line-numbers)
 ;; disable blinking cursor
@@ -366,3 +364,18 @@ to another project."
     (weechat-tunnel "stop")
     (message "Tunnel stopped")
     (+workspace/delete +irc--workspace-name)))
+
+
+;;
+;; Themes
+;;
+
+;; (require 'gruvbox-theme)
+;; (require 'gruvbox-light-hard-theme)
+;; (require 'gruvbox-dark-medium-theme)
+
+(require 'tao-theme)
+(require 'tao-yang-theme)
+;; (require 'tao-yin-theme)
+
+;; (require 'flatui-theme)

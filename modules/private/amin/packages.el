@@ -16,3 +16,7 @@
 (package! ssh-tunnels)
 
 (package! weechat)
+
+(package! gruvbox-theme)
+(package! tao-theme)
+(package! flatui-theme)

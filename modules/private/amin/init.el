@@ -14,7 +14,12 @@
 (setq +doom-modeline-height 36 ;; 32
       +doom-dashboard-pwd-policy "~/"
       doom-variable-pitch-font (font-spec :family "Concourse T4" :size 15)
-      doom-theme 'doom-one-light
+      ;; doom-theme 'doom-spacegrey
+      ;; doom-theme 'gruvbox-dark-medium
+      ;; doom-theme 'gruvbox-light-hard
+      doom-theme 'tao-yang
+      ;; doom-theme 'tao-yin
+      ;; doom-theme 'flatui
       text-scale-mode-step 1.05
       org-ellipsis "  "
       )
