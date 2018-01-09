@@ -26,6 +26,13 @@
                         message-fill-column 65)))
   (add-hook 'message-mode-hook
             #'flyspell-mode)
+  ;; TODO: is there a way to only run this when replying and not composing?
+  (add-hook 'notmuch-message-mode-hook
+            (lambda () (progn
+                    (newline)
+                    (newline)
+                    (forward-line -1)
+                    (forward-line -1))))
   ;; (add-hook 'message-setup-hook
   ;;           #'mml-secure-message-sign-pgpmime)
   )
