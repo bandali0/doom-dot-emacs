@@ -52,7 +52,11 @@
             (lambda ()
               (when (string= major-mode 'notmuch-message-mode)
                 (setq visual-fill-column-width 70))))
-  (set! :evil-state 'notmuch-message-mode 'insert))
+  (set! :evil-state 'notmuch-message-mode 'insert)
+  ;; (advice-add #'notmuch-bury-or-kill-this-buffer
+  ;;             :override #'doom/kill-this-buffer-in-all-windows)
+  ; used to be #'doom/kill-this-buffer
+  )
 
 (def-package! counsel-notmuch
   :commands counsel-notmuch)
