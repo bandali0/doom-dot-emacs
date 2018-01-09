@@ -290,6 +290,7 @@ to another project."
 
 ;; ibuffer
 (after! ibuffer
+  ;; (set! :popup "*Ibuffer*" :same t :autokill t)
   (setq ibuffer-show-empty-filter-groups nil)
   ;; Human-readable Size column
   ;; from https://www.emacswiki.org/emacs/IbufferMode#toc12
@@ -338,10 +339,14 @@ to another project."
         weechat-notification-mode t
         weechat-auto-monitor-buffers t
         weechat-buffer-kill-buffers-on-disconnect t
-        weechat-completing-read-function 'weechat--try-ivy)
-  (set! :evil-state 'weechat-mode 'insert)
+        weechat-completing-read-function 'weechat--try-ivy
+        ;; weechat-monitor-buffer-function #'+workspaces*auto-add-buffer
+        )
+  ;; (set! :evil-state 'weechat-mode 'insert)
   ;; weechat's buffers should be real
-  (push #'weechat-buffer-p doom-real-buffer-functions))
+  (push #'weechat-buffer-p doom-real-buffer-functions)
+  ;; (add-hook! 'weechat-mode-hook (setq-local doom-real-buffer-p t))
+  )
 
 (defun weechat-tunnel (command)
   (call-process "weechat-tunnel" nil nil nil command))
