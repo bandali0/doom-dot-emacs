@@ -18,29 +18,34 @@
    :map notmuch-hello-mode-map
    "g" #'notmuch-poll-and-refresh-this-buffer
    "i" (lambda ()
-         "Search for `inbox' tagged messages."
+         "Search for `inbox' tagged messages"
          (interactive)
          (notmuch-hello-search "tag:inbox"))
    "u" (lambda ()
-         "Search for `unread' tagged messages."
+         "Search for `unread' tagged messages"
          (interactive)
-         (notmuch-hello-search "tag:unread")))
+         (notmuch-hello-search "tag:unread"))
+   "M" (lambda ()
+         "Compose new mail and prompt for sender"
+         (interactive)
+         (let ((current-prefix-arg t))
+           (call-interactively #'notmuch-mua-new-mail))))
  (:after notmuch
    (:map notmuch-search-mode-map
      "g" #'notmuch-poll-and-refresh-this-buffer
      "k" (lambda ()
-           "Mark message read."
+           "Mark message read"
            (interactive)
            (notmuch-search-tag '("-unread"))
            ;; (notmuch-search-archive-thread)
            (notmuch-search-next-thread))
      "u" (lambda ()
-           "Mark message unread."
+           "Mark message unread"
            (interactive)
            (notmuch-search-tag '("+unread"))
            (notmuch-search-next-thread))
      "K" (lambda ()
-           "Mark message deleted."
+           "Mark message deleted"
            (interactive)
            (notmuch-search-tag '("-unread" "-inbox" "+deleted"))
            (notmuch-search-archive-thread))
