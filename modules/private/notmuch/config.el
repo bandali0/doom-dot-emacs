@@ -22,6 +22,7 @@
                         message-fill-column 65)))
   (add-hook 'message-mode-hook
             #'flyspell-mode)
+  (add-hook 'notmuch-message-mode-hook #'+doom-modeline|set-special-modeline)
   ;; TODO: is there a way to only run this when replying and not composing?
   (add-hook 'notmuch-message-mode-hook
             (lambda () (progn
