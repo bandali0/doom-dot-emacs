@@ -69,64 +69,6 @@
 (after! notmuch-crypto
   (setq notmuch-crypto-process-mime t))
 
-(after! notmuch-hello
-  (define-key notmuch-hello-mode-map "g"
-    'notmuch-poll-and-refresh-this-buffer)
-
-  (define-key notmuch-hello-mode-map "i"
-    (lambda ()
-      "Search for `inbox' tagged messages."
-      (interactive)
-      (notmuch-hello-search "tag:inbox")))
-
-  (define-key notmuch-hello-mode-map "u"
-    (lambda ()
-      "Search for `unread' tagged messages."
-      (interactive)
-      (notmuch-hello-search "tag:unread"))))
-
-(after! notmuch
-  (define-key notmuch-search-mode-map "g"
-    'notmuch-poll-and-refresh-this-buffer)
-
-  (define-key notmuch-search-mode-map "k"
-    (lambda ()
-      "Mark message read."
-      (interactive)
-      (notmuch-search-tag '("-unread"))
-      ;; (notmuch-search-archive-thread)
-      (notmuch-search-next-thread)))
-
-  (define-key notmuch-search-mode-map "u"
-    (lambda ()
-      "Mark message unread."
-      (interactive)
-      (notmuch-search-tag '("+unread"))
-      (notmuch-search-next-thread)))
-
-  (define-key notmuch-search-mode-map "K"
-    (lambda ()
-      "Mark message deleted."
-      (interactive)
-      (notmuch-search-tag '("-unread" "-inbox" "+deleted"))
-      (notmuch-search-archive-thread)))
-
-  (define-key notmuch-search-mode-map "S"
-    (lambda ()
-      "Mark message as spam"
-      (interactive)
-      (notmuch-search-tag '("-unread" "-inbox" "+spam"))
-      (notmuch-search-archive-thread)))
-
-  (define-key notmuch-tree-mode-map "S"
-    (lambda ()
-      "Mark message as spam"
-      (interactive)
-      (notmuch-tree-tag '("-unread" "-inbox" "+spam"))
-      (notmuch-tree-archive-thread))))
-
-;; TODO: Additional `notmuch-tree' key bindings
-
 (after! evil
   (mapc (lambda (str) (evil-set-initial-state (car str) (cdr str)))
         '((notmuch-hello-mode . emacs)
