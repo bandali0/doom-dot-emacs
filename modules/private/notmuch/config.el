@@ -4,21 +4,17 @@
 
 (defvar maildir "~/mail")
 
-(def-package! smtpmail
-  :config
-  (setq smtpmail-default-smtp-server "nix.aminb.org"
-        smtpmail-local-domain "aminb.org"
-        smtpmail-smtp-server "nix.aminb.org"
-        smtpmail-stream-type 'starttls
-        smtpmail-smtp-service 587))
-
 (def-package! sendmail
   :config
-  (setq send-mail-function 'smtpmail-send-it))
+  (setq sendmail-program "/usr/bin/msmtp"
+        mail-specify-envelope-from t
+        mail-envelope-from 'header))
 
 (def-package! message
   :config
   (setq message-kill-buffer-on-exit t
+        message-send-mail-function 'message-send-mail-with-sendmail
+        message-sendmail-envelope-from 'header
         message-directory "drafts"
         message-user-fqdn "aminb.org")
   (add-hook 'message-mode-hook
@@ -52,9 +48,11 @@
         notmuch-show-all-tags-list t
         notmuch-hello-thousands-separator ","
         notmuch-fcc-dirs
-        '(("amin@aminb.org" . "amin/Sent")
-          ("aminb@gnu.org"  . "gnu/Sent")
-          (".*"             . "sent")))
+        '(("amin@aminb.org"            . "amin/Sent")
+          ("amin.bandali@uwaterloo.ca" . "\"uwaterloo/Sent Items\"")
+          ("mbandali@uwaterloo.ca"     . "\"uwaterloo/Sent Items\"")
+          ("aminb@gnu.org"             . "gnu/Sent")
+          (".*"                        . "sent")))
   (add-hook 'visual-fill-column-mode-hook
             (lambda ()
               (when (string= major-mode 'notmuch-message-mode)
