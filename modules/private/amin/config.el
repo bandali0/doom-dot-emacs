@@ -20,6 +20,11 @@
 
 (load! +hydras)
 
+(defun open-dashboard ()
+  "Open the Doom dashboard in the current frame"
+  (interactive)
+  (+doom-dashboard/open (selected-frame)))
+
 (map!
  :ne "M-b" #'backward-word
  :ne "M-f" #'forward-word
@@ -39,7 +44,7 @@
  :n "\\"       #'recentf-open-files
 
  (:leader
-   :desc "Dashboard"    :n "d" #'+doom-dashboard/open
+   :desc "Dashboard"    :n "d" #'open-dashboard
    :desc "Centered"     :n "C" #'centered-window-mode
    ;; :desc "Recent files" :n "k" #'recentf-open-files
 
