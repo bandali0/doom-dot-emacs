@@ -30,7 +30,9 @@
 (require 'core (concat user-emacs-directory "core/core"))
 
 (doom! :feature
-       popup             ; tame sudden yet inevitable temporary windows
+       (popup            ; tame sudden yet inevitable temporary windows
+        +all             ; catch all popups that start with an asterix
+        +defaults)       ; default popup rules
       ;debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
        evil              ; come to the dark side, we have cookies
@@ -75,6 +77,7 @@
        make              ; run make tasks from Emacs
        neotree           ; a project drawer, like NERDTree for vim
        password-store    ; password manager for nerds
+      ;pdf               ; pdf enhancements
        rotate-text       ; cycle region at point between text candidates
        term              ; terminals in Emacs
        tmux              ; an API for interacting with tmux
@@ -127,7 +130,7 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-      ;email             ; emacs as an email client
+      ;(email +gmail)    ; emacs as an email client
       ;irc               ; how neckbeards socialize
       ;rss               ; emacs as an RSS reader
       ;twitter           ; twitter client https://twitter.com/vnought
@@ -139,7 +142,7 @@
        ;; scheme and additional ex commands for evil-mode. Use it as a reference
        ;; for your own.
        :private
-       default
+       (default +bindings +snippets +evil-commands)
        amin
        lean
        notmuch)
